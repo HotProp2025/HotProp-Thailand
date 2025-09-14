@@ -1,0 +1,52 @@
+name: Build iOS Archive
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: macos-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+        cache-dependency-path: mobile/HotPropApp/package-lock.json
+        
+    - name: Install dependencies
+      run: |
+        cd mobile/HotPropApp
+        npm ci
+        
+    - name: Build web app
+      run: |
+        cd mobile/HotPropApp
+        npm run build
+        
+    - name: Sync Capacitor
+      run: |
+        cd mobile/HotPropApp
+        npx cap sync ios
+        
+    - name: Build iOS Archive
+      run: |
+        cd mobile/HotPropApp/ios/App
+        xcodebuild -workspace App.xcworkspace -scheme App -configuration Debug -destination generic/platform=iOS -archivePath App.xcarchive archive
+        
+    - name: Export iOS Archive
+      run: |
+        cd mobile/HotPropApp/ios/App
+        xcodebuild -exportArchive -archivePath App.xcarchive -exportPath . -exportOptionsPlist ../../exportOptions.plist
+        
+    - name: Upload iOS Archive
+      uses: actions/upload-artifact@v4
+      with:
+        name: HotProp-iOS-Archive
+        path: mobile/HotPropApp/ios/App/*.ipa
