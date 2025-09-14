@@ -17,8 +17,6 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: '20'
-        cache: 'npm'
-        cache-dependency-path: mobile/HotPropApp/package-lock.json
         
     - name: Setup Java
       uses: actions/setup-java@v4
@@ -32,9 +30,9 @@ jobs:
     - name: Install dependencies
       run: |
         cd mobile/HotPropApp
-        npm ci
+        npm install
         
-    - name: Build web app
+    - name: Build web content
       run: |
         cd mobile/HotPropApp
         npm run build
