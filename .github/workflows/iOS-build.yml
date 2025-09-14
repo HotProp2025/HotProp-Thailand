@@ -9,6 +9,9 @@ jobs:
   build:
     runs-on: macos-latest
     
+    env:
+      PRODUCTION_SERVER_URL: ${{ secrets.PRODUCTION_SERVER_URL }}
+    
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
@@ -18,25 +21,27 @@ jobs:
       with:
         node-version: '20'
         
-    - name: Install dependencies
+    - name: Install dependencies and build
+      working-directory: mobile/HotPropApp
       run: |
-        cd mobile/HotPropApp
         npm install
-        
-    - name: Build web content
-      run: |
-        cd mobile/HotPropApp
         npm run build
         
-    - name: Sync Capacitor
+    - name: Update server URL for production
+      working-directory: mobile/HotPropApp
       run: |
-        cd mobile/HotPropApp
-        npx cap sync ios
+        DEFAULT_URL="https://f3560164-f81e-4dcd-9ff4-bb7f8c5d1fd5-00-r5p4se0029y6.spock.replit.dev"
+        URL="${PRODUCTION_SERVER_URL:-$DEFAULT_URL}"
+        sed -i.bak "s|https://f3560164-f81e-4dcd-9ff4-bb7f8c5d1fd5-00-r5p4se0029y6.spock.replit.dev|$URL|g" capacitor.config.ts
+        
+    - name: Sync Capacitor
+      working-directory: mobile/HotPropApp
+      run: npx cap sync ios
         
     - name: Build iOS Archive
+      working-directory: mobile/HotPropApp/ios/App
       run: |
-        cd mobile/HotPropApp/ios/App
-       xcodebuild -workspace App.xcworkspace -scheme App -configuration Debug -destination generic/platform=iOS -archivePath App.xcarchive archive CODE_SIGNING_ALLOWED=NO
+        xcodebuild -workspace App.xcworkspace -scheme App -configuration Debug -destination generic/platform=iOS -archivePath App.xcarchive archive CODE_SIGNING_ALLOWED=NO
         
     - name: Upload iOS Archive
       uses: actions/upload-artifact@v4
