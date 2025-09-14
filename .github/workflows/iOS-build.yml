@@ -36,7 +36,7 @@ jobs:
     - name: Build iOS Archive
       run: |
         cd mobile/HotPropApp/ios/App
-        xcodebuild -workspace App.xcworkspace -scheme App -configuration Debug -destination generic/platform=iOS -archivePath App.xcarchive archive
+       xcodebuild -workspace App.xcworkspace -scheme App -configuration Debug -destination generic/platform=iOS -archivePath App.xcarchive archive CODE_SIGNING_ALLOWED=NO
         
     - name: Upload iOS Archive
       uses: actions/upload-artifact@v4
