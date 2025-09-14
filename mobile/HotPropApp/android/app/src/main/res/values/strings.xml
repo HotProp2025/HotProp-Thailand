@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">HotProp Thailand</string>
+    <string name="title_activity_main">HotProp Thailand</string>
+    <string name="package_name">com.hotprop.thailand</string>
+    <string name="custom_url_scheme">com.hotprop.thailand</string>
+</resources>

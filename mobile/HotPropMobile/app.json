@@ -1,0 +1,32 @@
+{
+  "expo": {
+    "name": "HotProp Thailand",
+    "slug": "hotprop-thailand",
+    "version": "1.0.1",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": false,
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.hotprop.thailand",
+      "buildNumber": "20",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
+    },
+    "android": {
+      "package": "com.hotprop.thailand",
+      "versionCode": 25,
+      "permissions": [
+        "INTERNET",
+        "ACCESS_NETWORK_STATE",
+        "ACCESS_WIFI_STATE"
+      ]
+    },
+    "extra": {
+      "eas": {
+        "projectId": "c561e4f3-f9af-4b9b-8e9a-be22c0aa5e7d"
+      }
+    }
+  }
+}
