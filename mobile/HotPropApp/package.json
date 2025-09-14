@@ -1,5 +1,5 @@
 {
-  "name": "hotprop-app",
+  "name": "hotprop-app", 
   "version": "1.0.0",
   "description": "HotProp Thailand Mobile App",
   "main": "index.js",
@@ -10,10 +10,11 @@
     "sync": "npx cap sync"
   },
   "devDependencies": {
-    "@capacitor/cli": "^6.1.2"
+    "@capacitor/cli": "^6.1.2",
+    "typescript": "^5.0.0"
   },
   "dependencies": {
-    "@capacitor/core": "^6.1.2",
+    "@capacitor/core": "^6.1.2", 
     "@capacitor/ios": "^6.1.2",
     "@capacitor/android": "^6.1.2"
   }
